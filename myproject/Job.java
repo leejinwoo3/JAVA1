@@ -6,6 +6,7 @@ public class Job {
 	protected String jobName;
 	protected String jobGrade;
 	double power;
+	int id;
 
 	public Job() {
 		initJob();

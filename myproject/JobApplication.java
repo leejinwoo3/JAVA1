@@ -9,6 +9,7 @@ public class JobApplication {
 	private static ArrayList<Job> jobList = new ArrayList<>();
 	private static Job[] jobArray = new Job[100];
 	private static Scanner scanner = new Scanner(System.in);
+	private static int id;
 
 	public static void main(String[] args) {
 
@@ -35,11 +36,12 @@ public class JobApplication {
 
 		showAllJob();
 
+		
 		boolean run = true;
 
 		while (run) {
 			System.out.println("-------------------------------------------");
-			System.out.println("1.인물선택 | 2.인물선택목록");
+			System.out.println("1.인물생성 | 2.인물생성목록 | 3.인물삭제 | 4.종료");
 
 			System.out.println("-------------------------------------------");
 			System.out.println("선택> ");
@@ -52,9 +54,14 @@ public class JobApplication {
 			case 2:
 				Characterlist();
 				break;
-
+			case 3:
+				RemoveList();
+				break;
+			case 4:
+				run = false;
+				break;
 			default:
-				System.out.println("1~2사이의 숫자를 입력해주세요");
+				System.out.println("1~4사이의 숫자를 입력해주세요");
 				break;
 			}
 
@@ -63,13 +70,13 @@ public class JobApplication {
 	}
 
 	private static void Characterselection() {
-		System.out.println("--------");
-		System.out.println("케릭터 선택");
-		System.out.println("--------");
-
+		System.out.println("===========================");
+		for (Job job : jobList) {
+			System.out.println(job.showJobInfo());}
+		System.out.println("===========================");
 		System.out.println("캐릭터ID :");
 		int jobID = scanner.nextInt();
-
+		System.out.println("===========================");
 		System.out.println("캐릭터이름 :");
 		String jobName = scanner.next();
 
@@ -81,7 +88,8 @@ public class JobApplication {
 
 			if (jobArray[i] == null) {
 				jobArray[i] = newjob;
-				System.out.println("결과: 케릭터가 선택되었습니다.");
+				System.out.println("===========================");
+				System.out.println(" 캐릭터가 생성되었습니다.");
 				break;
 			}
 		}
@@ -89,10 +97,9 @@ public class JobApplication {
 	}
 
 	private static void Characterlist() {
-		System.out.println("-----------");
+		System.out.println("===========================");
 		System.out.println("케릭터목록");
-		System.out.println("-----------");
-
+		System.out.println("===========================");
 		for (Job job : jobArray) {
 			if (job != null) {
 				System.out.print(job.getJobID());
@@ -101,10 +108,25 @@ public class JobApplication {
 				System.out.print(" ");
 				System.out.println();
 			}
-		}
+		}System.out.println("===========================");
 
 	}
 
+	private static void RemoveList() {
+		
+		
+	System.out.println("삭제할 인물을 고르시오");
+	System.out.println("===========================");
+	for (Job job : jobList) {
+		System.out.println(job.showJobInfo());
+		if(job != null) {
+		
+			Scanner jobID = null;
+			jobID.remove();
+		}
+	}
+	System.out.println("===========================");
+	}
 	private static void showAllJob() {
 		// TODO Auto-generated method stub
 		System.out.println("============== 인물 직업 정보=============");
