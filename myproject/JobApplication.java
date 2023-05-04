@@ -3,14 +3,14 @@ package myproject;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import quiz.Account;
 
 public class JobApplication {
 	private static ArrayList<Job> jobList = new ArrayList<>();
-	private static Job[] jobArray = new Job[100];
+	private static Job[] jobArray = new Job[100]; // 없어도 됩니다.
 	private static Scanner scanner = new Scanner(System.in);
 	private static int id;
-
+	static int index = 0;
+	
 	public static void main(String[] args) {
 
 		Job jobbae = new Job(1, "배철수");
@@ -34,14 +34,13 @@ public class JobApplication {
 		jobList.add(jobre);
 		jobList.add(jobgo);
 
-		showAllJob();
 
 		
 		boolean run = true;
 
 		while (run) {
 			System.out.println("-------------------------------------------");
-			System.out.println("1.인물생성 | 2.인물생성목록 | 3.인물삭제 | 4.종료");
+			System.out.println("1.인물생성 | 2.캐릭터목록 | 3.인물삭제 | 4.종료");
 
 			System.out.println("-------------------------------------------");
 			System.out.println("선택> ");
@@ -49,7 +48,7 @@ public class JobApplication {
 
 			switch (selectNo) {
 			case 1:
-				Characterselection();
+				CharacterCreate();
 				break;
 			case 2:
 				Characterlist();
@@ -69,70 +68,116 @@ public class JobApplication {
 
 	}
 
-	private static void Characterselection() {
-		System.out.println("===========================");
-		for (Job job : jobList) {
-			System.out.println(job.showJobInfo());}
-		System.out.println("===========================");
-		System.out.println("캐릭터ID :");
-		int jobID = scanner.nextInt();
-		System.out.println("===========================");
-		System.out.println("캐릭터이름 :");
-		String jobName = scanner.next();
-
-		Job newjob = new Job(jobID, jobName);
-
-//		jobList.add(newjob);
-
-		for (int i = 0; i < jobArray.length; i++) {
-
-			if (jobArray[i] == null) {
-				jobArray[i] = newjob;
-				System.out.println("===========================");
-				System.out.println(" 캐릭터가 생성되었습니다.");
-				break;
-			}
+	private static void CharacterCreate() {
+		System.out.println("직업을 선택하세요.");
+		System.out.println("1. 전사 | 2. 궁수 | 3. 마법사 ");
+		System.out.print("선택 > ");
+		int selectJob = scanner.nextInt();
+		if(selectJob == 1) {
+			System.out.println("전사의 ID 를 입력해주세요(숫자)");
+			System.out.print("입력 > ");
+			int warriorId = scanner.nextInt();
+			System.out.println("전사의 닉네임을 입력해주세요(문자)");
+			System.out.print("입력 > ");
+			String warriorName = scanner.next();
+			System.out.println("전사의 초기HP값은? (숫자)");
+			System.out.print("입력 > ");
+			int warriorHP = scanner.nextInt();
+			System.out.println("전사의 초기 공격력은? (숫자)");
+			System.out.print("입력 > ");
+			int warriorPower = scanner.nextInt();
+			
+			Warrior warrior = new Warrior(warriorId,warriorName,warriorHP,warriorPower);
+			jobList.add(warrior);
+			System.out.println("캐릭터 생성이 완료되었습니다.");
+		} else if(selectJob == 2) {
+			System.out.println("궁수의 ID 를 입력해주세요(숫자)");
+			System.out.print("입력 > ");
+			int archerId = scanner.nextInt();
+			System.out.println("궁수의 닉네임을 입력해주세요(문자)");
+			System.out.print("입력 > ");
+			String archerName = scanner.next();
+			System.out.println("궁수의 초기HP값은? (숫자)");
+			System.out.print("입력 > ");
+			int archerHP = scanner.nextInt();
+			System.out.println("궁수의 초기 공격력은? (숫자)");
+			System.out.print("입력 > ");
+			int archerPower = scanner.nextInt();
+			System.out.println("궁수의 명중률은? (숫자)");
+			System.out.print("입력 > ");
+			int archerHitRate = scanner.nextInt();
+			
+			Archer archer = new Archer(archerId,archerName,archerHP,archerPower,archerHitRate);
+			jobList.add(archer);
+			System.out.println("캐릭터 생성이 완료되었습니다.");
+		} else if(selectJob == 3) {
+			System.out.println("마법사의 ID 를 입력해주세요(숫자)");
+			System.out.print("입력 > ");
+			int wizardId = scanner.nextInt();
+			System.out.println("마법사의 닉네임을 입력해주세요(문자)");
+			System.out.print("입력 > ");
+			String wizardName = scanner.next();
+			System.out.println("마법사의 초기HP값은? (숫자)");
+			System.out.print("입력 > ");
+			int wizardHP = scanner.nextInt();
+			System.out.println("마법사의 초기 공격력은? (숫자)");
+			System.out.print("입력 > ");
+			int wizardPower = scanner.nextInt();
+			
+			Wizard wizard = new Wizard(wizardId,wizardName,wizardHP,wizardPower);
+			jobList.add(wizard);
+			System.out.println("캐릭터 생성이 완료되었습니다.");
+		} else {
+			System.out.println("잘못 입력하셨습니다. 다시 시도해 주세요.");
+			return;
 		}
-
 	}
 
 	private static void Characterlist() {
 		System.out.println("===========================");
 		System.out.println("케릭터목록");
 		System.out.println("===========================");
-		for (Job job : jobArray) {
-			if (job != null) {
-				System.out.print(job.getJobID());
-				System.out.print(" ");
-				System.out.print(job.getJobName());
-				System.out.print(" ");
-				System.out.println();
-			}
-		}System.out.println("===========================");
+		showAllJob();
+		System.out.println("===========================");
 
 	}
-
+	
+	public static Job findJob(String jobName) {
+		Job resultJob = null;
+		for(Job job : jobList) {
+			if(job.getJobName() == jobName) {
+				resultJob = job;
+				break;
+			}
+		}
+		return resultJob;
+	}
+	
+	
 	private static void RemoveList() {
-		
+	Scanner scanner = new Scanner(System.in);
 		
 	System.out.println("삭제할 인물을 고르시오");
 	System.out.println("===========================");
-	for (Job job : jobList) {
-		System.out.println(job.showJobInfo());
-		if(job != null) {
-		
-			Scanner jobID = null;
-			jobID.remove();
-		}
-	}
+	showAllJob();
+		System.out.println("캐릭터 번호 선택 > ");
+		int result = scanner.nextInt();
+		jobList.remove(result-1);
+		System.out.println("삭제가 완료되었습니다.");
+		showAllJob();
+	
 	System.out.println("===========================");
 	}
 	private static void showAllJob() {
 		// TODO Auto-generated method stub
 		System.out.println("============== 인물 직업 정보=============");
+		
 		for (Job job : jobList) {
+			System.out.print(index+1 +"번 캐릭터 : ");
 			System.out.println(job.showJobInfo());
+			index++;
 		}
+		index=0;
 		System.out.println("================= 선택창 ================");
 
 	}
